@@ -1,0 +1,240 @@
+<div class="mat-display-3 top-heading">Best Movies Of All Time</div>
+
+<mat-form-field>
+  <mat-label>Search</mat-label>
+  <input
+    matInput
+    (keyup)="applyFilter($event)"
+    placeholder="Search by Title, Year, Boxoffice, imdbRating"
+    #input
+  />
+</mat-form-field>
+<table
+  mat-table
+  matSort
+  multiTemplateDataRows
+  class="mat-elevation-z8"
+  [dataSource]="dataSource"
+>
+  <ng-container matColumnDef="Poster">
+    <th mat-header-cell *matHeaderCellDef class="ws-5 ws-column "></th>
+    <td mat-cell class="ws-column" *matCellDef="let row">
+      <img class="small-poster" [src]="row.Poster" />
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="Title">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      class="ws-20 ws-column"
+      mat-sort-header
+    >
+      Title
+    </th>
+    <td mat-cell class="ws-column" *matCellDef="let row">{{ row.Title }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="Year">
+    <th mat-header-cell *matHeaderCellDef class="ws-5 ws-column">Year</th>
+    <td mat-cell class="ws-column" *matCellDef="let row">{{ row.Year }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="Genre">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      class="ws-15 ws-column"
+      mat-sort-header
+    >
+      Genre
+    </th>
+    <td mat-cell class="ws-column" *matCellDef="let row">{{ row.Genre }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="Director">
+    <th mat-header-cell *matHeaderCellDef class="ws-10 ws-column">Director</th>
+    <td mat-cell class="ws-column" *matCellDef="let row">{{ row.Director }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="imdbRating">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      class="ws-5 ws-column"
+      mat-sort-header
+    >
+      IMDBRating
+    </th>
+    <td mat-cell class="ws-column" *matCellDef="let row">
+      {{ row.imdbRating }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="BoxOffice">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      class="ws-10 ws-column"
+      mat-sort-header
+    >
+      Box Office
+    </th>
+    <td mat-cell class="ws-column" *matCellDef="let row">
+      {{ row.BoxOffice }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Language">
+    <th mat-header-cell *matHeaderCellDef class="ws-20 ws-column">Language</th>
+    <td mat-cell class="ws-column" *matCellDef="let row">{{ row.Language }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="Country">
+    <th mat-header-cell *matHeaderCellDef class="ws-5 ws-column">Country</th>
+    <td mat-cell class="ws-column" *matCellDef="let row">{{ row.Country }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="Arrow">
+    <th mat-header-cell *matHeaderCellDef class="ws-20 ws-column"></th>
+    <td mat-cell class="ws-column" *matCellDef="let row"><img class="extra-small-poster" src="assets/svg/down-arrow.svg"></td>
+  </ng-container>
+
+  <ng-container matColumnDef="expandedDetail">
+    <td mat-cell *matCellDef="let row" [attr.colspan]="displayedColumns.length">
+      <div
+        class="example-element-detail"
+        [@detailExpand]="row == expandedElement ? 'expanded' : 'collapsed'"
+      >
+        <div class="row expansion-div">
+          <div
+            class="col-md-12 expansion-div expansion-div-background expansion-div-padding"
+          >
+            <div class="col-md-4 align-left">
+              <img [src]="row.Poster" />
+            </div>
+            <div class="col-md-4 align-center">
+              <div class="row align-left">
+                <div class="col-md-3">
+                  <p class="bold-font">Website:</p>
+                </div>
+                <div class="col-md-7 break-word">
+                  <a [href]="row.Website">{{ row.Website }} </a>
+                </div>
+              </div>
+              <div class="row align-left">
+                <div class="col-md-3">
+                  <p class="bold-font">Released:</p>
+                </div>
+                <div class="col-md-7">
+                  <p>{{ row.Released }}</p>
+                </div>
+              </div>
+              <div class="row align-left">
+                <div class="col-md-3">
+                  <p class="bold-font">Actors:</p>
+                </div>
+                <div class="col-md-7">
+                  <p>{{ row.Actors }}</p>
+                </div>
+              </div>
+              <div class="row align-left">
+                <div class="col-md-3">
+                  <p class="bold-font">Awards:</p>
+                </div>
+                <div class="col-md-7">
+                  <p>{{ row.Awards }}</p>
+                </div>
+              </div>
+              <div class="row align-left">
+                <div class="col-md-3">
+                  <p class="bold-font">Writer:</p>
+                </div>
+                <div class="col-md-7">
+                  <p>{{ row.Writer }}</p>
+                </div>
+              </div>
+              <div class="row align-left">
+                <div class="col-md-3">
+                  <p class="bold-font">Production:</p>
+                </div>
+                <div class="col-md-7">
+                  <p>{{ row.Production }}</p>
+                </div>
+              </div>
+              <div class="row align-left">
+                <div class="col-md-3">
+                  <p class="bold-font">Rated:</p>
+                </div>
+                <div class="col-md-7">
+                  <p>{{ row.Rated }}</p>
+                </div>
+              </div>
+              <div class="row align-left">
+                <div class="col-md-3">
+                  <p class="bold-font">Runtime:</p>
+                </div>
+                <div class="col-md-7">
+                  <p>{{ row.Runtime }}</p>
+                </div>
+              </div>
+              <div class="row align-left">
+                <div class="col-md-3">
+                  <p class="bold-font">Metascore:</p>
+                </div>
+                <div class="col-md-7">
+                  <p>{{ row.Metascore }}</p>
+                </div>
+              </div>
+              <div class="row align-left">
+                <div class="col-md-3">
+                  <p class="bold-font">Type:</p>
+                </div>
+                <div class="col-md-7">
+                  <p>{{ row.Type }}</p>
+                </div>
+              </div>
+              <div class="row align-left">
+                <div class="col-md-3">
+                  <p class="bold-font">DVD:</p>
+                </div>
+                <div class="col-md-7">
+                  <p>{{ row.DVD }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 align-center">
+              <div class="col-md-12">
+                <p class="bold-font">Plot:</p>
+              </div>
+              <div class="col-md-12 align-left">
+                <p>{{ row.Plot }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr
+    mat-row
+    *matRowDef="let row; columns: displayedColumns"
+    class="example-element-row tr-row"
+    [class.example-expanded-row]="expandedElement === row"
+    (click)="expandedElement = expandedElement === row ? null : row"
+  ></tr>
+  <tr
+    mat-row
+    *matRowDef="let element; columns: ['expandedDetail']"
+    class="example-detail-row"
+  ></tr>
+
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" colspan="4">
+      No data matching the filter "{{ input.value }}"
+    </td>
+  </tr>
+</table>
+
+<mat-paginator [pageSizeOptions]="[8, 25, 100]"></mat-paginator>
